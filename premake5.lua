@@ -4,13 +4,13 @@ configurations { "Debug", "Release" }
 
 project "TreeVisualisation"
 kind "ConsoleApp"
-language "C"
+language "C++"
 targetdir "bin/%{cfg.buildcfg}"
 
-files { "**.h", "**.c" }
+files { "**.h", "**.cpp" }
 includedirs { "include" }
 libdirs { "lib" }
-links { "raylib" }
+links { "raylib", "winmm" }
 
 filter "configurations:Debug"
 architecture "x86_64"

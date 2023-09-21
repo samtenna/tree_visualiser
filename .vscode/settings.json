@@ -6,6 +6,7 @@
         "*.gui_script": "lua",
         "*.script": "lua",
         "*.render_script": "lua",
-        "raylib.h": "c"
+        "raylib.h": "c",
+        "optional": "cpp"
     }
 }
