@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        ".svelte": "html",
+        ".gui_script": "lua",
+        ".script": "lua",
+        "*.gui_script": "lua",
+        "*.script": "lua",
+        "*.render_script": "lua",
+        "raylib.h": "c"
+    }
+}

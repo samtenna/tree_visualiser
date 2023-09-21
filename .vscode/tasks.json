@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "premake5 vs2022; msbuild /m /p:Configuration=Release /p:Platform=x64",
+        },
+        {
+            "label": "build_debug",
+            "type": "shell",
+            "command": "premake5 vs2022; msbuild /m /p:Configuration=Debug /p:Platform=x64",
+        }
+    ]
+}
