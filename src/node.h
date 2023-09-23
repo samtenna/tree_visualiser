@@ -15,17 +15,19 @@ public:
         this->parent = parent;
     }
 
-    std::shared_ptr<Node> getLeft() {
-        return left.value();
+    std::optional<std::shared_ptr<Node>> getLeft() {
+        return left;
     }
 
-    std::shared_ptr<Node> getRight() {
-        return right.value();
+    std::optional<std::shared_ptr<Node>> getRight() {
+        return right;
     }
 
-    std::shared_ptr<Node> getParent() {
-        return parent.value();
+    std::optional<std::shared_ptr<Node>> getParent() {
+        return parent;
     }
+
+    void draw(int x, int y, int level);
 
 public:
     int value;

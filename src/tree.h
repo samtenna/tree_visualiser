@@ -7,9 +7,11 @@ class Tree {
 public:
     Tree() {}
 
+    void draw();
+
     virtual void insertValue(int value) = 0;
     virtual void deleteValue(int value) = 0;
 
-private:
+protected:
     std::optional<std::shared_ptr<Node>> root;
 };

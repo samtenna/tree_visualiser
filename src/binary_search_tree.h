@@ -1,8 +1,8 @@
 #include "tree.h"
 
-class BinaryTree : public Tree {
+class BinarySearchTree : public Tree {
 public:
-    BinaryTree() : Tree() {}
+    BinarySearchTree() : Tree() {}
 
     void insertValue(int value) override;
     void deleteValue(int value) override;
