@@ -5,10 +5,11 @@ configurations { "Debug", "Release" }
 project "TreeVisualisation"
 kind "ConsoleApp"
 language "C++"
+cppdialect "C++latest"
 targetdir "bin/%{cfg.buildcfg}"
 
 files { "**.h", "**.cpp" }
-includedirs { "include" }
+includedirs { "include", "src" }
 libdirs { "lib" }
 links { "raylib", "winmm" }
 

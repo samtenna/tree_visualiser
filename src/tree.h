@@ -1,22 +1,15 @@
 #include <memory>
+#include <optional>
 
 #include "node.h"
 
-enum TreeType {
-    AVLTree,
-    BinarySearchTree,
-    RedBlackTree,
-};
-
 class Tree {
 public:
-    Tree() {
-        root = std::make_shared<Node>();
-    }
+    Tree() {}
 
-public:
-    TreeType type;
+    virtual void insertValue(int value) = 0;
+    virtual void deleteValue(int value) = 0;
 
 private:
-    std::shared_ptr<Node> root;
+    std::optional<std::shared_ptr<Node>> root;
 };

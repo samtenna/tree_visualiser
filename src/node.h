@@ -4,16 +4,34 @@
 
 class Node {
 public:
-    Node(std::shared_ptr<Node> parent, int value)
-        : parent(parent), value(value) {}
+    Node(int value)
+        : value(value) {}
 
-    void insertLeft(int value);
-    void insertRight(int value);
+    void setLeft(int value);
+
+    void setRight(int value);
+
+    void setParent(std::shared_ptr<Node> parent) {
+        this->parent = parent;
+    }
+
+    std::shared_ptr<Node> getLeft() {
+        return left.value();
+    }
+
+    std::shared_ptr<Node> getRight() {
+        return right.value();
+    }
+
+    std::shared_ptr<Node> getParent() {
+        return parent.value();
+    }
 
 public:
-    std::optional<std::shared_ptr<Node>>
-        left;
+    int value;
+
+private:
+    std::optional<std::shared_ptr<Node>> left;
     std::optional<std::shared_ptr<Node>> right;
     std::optional<std::shared_ptr<Node>> parent;
-    int value;
 };
