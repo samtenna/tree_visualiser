@@ -25,7 +25,7 @@ void Node::setRight(int value) {
 
 void Node::draw(int x, int y, int level) {
     int nodesOnLevel = 1 << level;
-    int levelOffset = GetScreenWidth() / nodesOnLevel / 4;
+    int levelOffset = GetScreenWidth() / nodesOnLevel / 6;
 
     // Lines need to be drawn before circles so that the circles are on top
     if (left.has_value()) {
@@ -36,8 +36,8 @@ void Node::draw(int x, int y, int level) {
         DrawLine(x, y, x + levelOffset, y + 100, BLACK);
     }
 
-    DrawCircle(x, y, 40.0f, BLACK);
-    DrawCircle(x, y, 38.0f, RAYWHITE);
+    DrawCircle(x, y, 30.0f, BLACK);
+    DrawCircle(x, y, 28.0f, RAYWHITE);
     DrawText(std::to_string(value).c_str(), x - 12, y - 12, 24, BLACK);
 
     // Recursively draw children
