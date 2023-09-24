@@ -27,7 +27,11 @@ int main() {
                             keypad.resetNumber();
                         },
                         10, 10, 100, 50};
-    Button deleteButton{"Delete", []() {}, 10, 70, 100, 50};
+    Button deleteButton{"Delete", [&tree, &keypad]() mutable {
+                            tree.deleteValue(keypad.getNumber());
+                            keypad.resetNumber();
+                        },
+                        10, 70, 100, 50};
 
     while (!WindowShouldClose()) {
         insertButton.tick();

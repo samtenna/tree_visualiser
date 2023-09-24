@@ -13,9 +13,17 @@ public:
 
     void setRight(int value);
 
-    // void setParent(std::shared_ptr<Node> parent) {
-    //     this->parent = parent;
-    // }
+    void clearLeft() {
+        left = std::nullopt;
+    }
+
+    void clearRight() {
+        right = std::nullopt;
+    }
+
+    void setParent(Node* parent) {
+        this->parent = parent;
+    }
 
     std::optional<std::shared_ptr<Node>> getLeft() {
         return left;
@@ -25,17 +33,15 @@ public:
         return right;
     }
 
-    // std::optional<std::shared_ptr<Node>> getParent() {
-    //     return parent;
-    // }
+    Node* getParent() {
+        return parent;
+    }
 
     void draw(int x, int y, int level);
 
 public:
     int value;
-
-private:
     std::optional<std::shared_ptr<Node>> left;
     std::optional<std::shared_ptr<Node>> right;
-    // std::optional<std::shared_ptr<Node>> parent;
+    Node* parent;
 };
