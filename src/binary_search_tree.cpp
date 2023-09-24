@@ -28,7 +28,8 @@ void BinarySearchTree::insertValue(int value) {
                 return;
             }
         } else {
-            std::cout << stderr << "Value already in tree" << std::endl;
+            std::cout << "Value already in tree" << std::endl;
+            break;
         }
     }
 }

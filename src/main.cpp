@@ -14,20 +14,25 @@ int main() {
     SetTargetFPS(60);
 
     BinarySearchTree tree{};
+    KeyPad keypad{SCREEN_WIDTH - BUTTON_WIDTH * 3 - MARGIN * 2 - 10, 10};
     tree.insertValue(50);
     tree.insertValue(25);
     tree.insertValue(100);
     tree.insertValue(75);
     tree.insertValue(76);
+    tree.insertValue(101);
 
-    Button insertButton{"Insert", []() {}, 10, 10, 100, 50};
+    Button insertButton{"Insert", [&tree, &keypad]() mutable {
+                            tree.insertValue(keypad.getNumber());
+                            keypad.resetNumber();
+                        },
+                        10, 10, 100, 50};
     Button deleteButton{"Delete", []() {}, 10, 70, 100, 50};
-
-    KeyPad keypad{SCREEN_WIDTH - BUTTON_WIDTH * 3 - MARGIN * 2 - 10, 10};
 
     while (!WindowShouldClose()) {
         insertButton.tick();
         deleteButton.tick();
+        keypad.tick();
 
         BeginDrawing();
 
