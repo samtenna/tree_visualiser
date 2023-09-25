@@ -35,91 +35,110 @@ void BinarySearchTree::insertValue(int value) {
 }
 
 void BinarySearchTree::deleteValue(int value) {
+    if (root == std::nullopt) {
+        std::cout << "Tree is empty" << std::endl;
+        return;
+    }
+
     std::shared_ptr<Node> current = root.value();
-    // NOTE: this currently crashes when deleting the root node, maybe do something about that idk
 
     while (true) {
-        if (value < current->value) {
-            if (current->getLeft().has_value()) {
-                current = current->getLeft().value();
-            } else {
-                return;
-            }
-        } else if (value > current->value) {
+        if (current->value < value) {
             if (current->getRight().has_value()) {
                 current = current->getRight().value();
             } else {
-                return;
+                break;
             }
-        } else {
+        } else if (current->value > value) {
+            if (current->getLeft().has_value()) {
+                current = current->getLeft().value();
+            } else {
+                break;
+            }
+        } else if (current->value == value) {
             // case 1: no children
             if (!current->getLeft().has_value() && !current->getRight().has_value()) {
-                Node* parent = current->getParent();
-
-                if (parent->getLeft() == current) {
-                    parent->clearLeft();
-                } else {
-                    parent->clearRight();
+                if (current == root) {
+                    root = std::nullopt;
+                    return;
                 }
 
-                return;
+                if (current->getParent()->left.has_value() && current->getParent()->left.value()->value == value) {
+                    current->getParent()->clearLeft();
+                } else {
+                    current->getParent()->clearRight();
+                }
             }
 
             // case 2: one child
             if (current->getLeft().has_value() && !current->getRight().has_value()) {
-                Node* parent = current->getParent();
-
-                if (parent->getLeft() == current) {
-                    parent->setLeft(current->getLeft().value()->value);
-                } else {
-                    parent->setRight(current->getLeft().value()->value);
+                if (current == root) {
+                    root = current->getLeft();
+                    root.value()->setParent(nullptr);
+                    return;
                 }
 
-                return;
+                Node* parent = current->getParent();
+
+                if (parent->left.has_value() && parent->left.value()->value == value) {
+                    // current is a left child
+                    parent->left = current->getLeft();
+                    parent->left.value()->setParent(parent);
+                } else {
+                    // current is a right child
+                    parent->right = current->getLeft();
+                    parent->right.value()->setParent(parent);
+                }
             }
 
             if (!current->getLeft().has_value() && current->getRight().has_value()) {
-                Node* parent = current->getParent();
-
-                if (parent->getLeft() == current) {
-                    parent->setLeft(current->getRight().value()->value);
-                } else {
-                    parent->setRight(current->getRight().value()->value);
+                if (current == root) {
+                    root = current->getRight();
+                    root.value()->setParent(nullptr);
+                    return;
                 }
 
-                return;
+                Node* parent = current->getParent();
+
+                if (parent->left.has_value() && parent->left.value()->value == value) {
+                    // current is a left child
+                    parent->left = current->getRight();
+                    parent->left.value()->setParent(parent);
+                } else {
+                    // current is a right child
+                    parent->right = current->getRight();
+                    parent->right.value()->setParent(parent);
+                }
             }
 
             // case 3: two children
             if (current->getLeft().has_value() && current->getRight().has_value()) {
-                // find the smallest value in the right subtree
                 std::shared_ptr<Node> successor = current->getRight().value();
 
                 while (successor->getLeft().has_value()) {
                     successor = successor->getLeft().value();
                 }
 
-                // replace the current node with the successor
                 current->value = successor->value;
 
-                // delete the successor
-                Node* parent = successor->getParent();
-                if (successor->getRight() != std::nullopt) {
-                    successor->getRight().value()->setParent(parent);
-
-                    if (parent->value == current->value) {
-                        parent->right = successor->getRight();
+                if (successor->getParent()->left.has_value() && successor->getParent()->left.value()->value == successor->value) {
+                    if (successor->right.has_value()) {
+                        successor->getParent()->left = successor->right;
+                        successor->right.value()->setParent(successor->getParent());
                     } else {
-                        parent->left = successor->getRight();
+                        successor->getParent()->clearLeft();
                     }
                 } else {
-                    if (parent->value == current->value) {
-                        parent->clearRight();
+                    if (successor->right.has_value()) {
+                        successor->getParent()->right = successor->right;
+                        successor->right.value()->setParent(successor->getParent());
                     } else {
-                        parent->clearLeft();
+                        successor->getParent()->clearRight();
                     }
                 }
             }
+
+            break;
         }
     }
 }

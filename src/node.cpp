@@ -5,6 +5,9 @@
 
 #include "node.h"
 
+const float MAX_CIRLCE_RADIUS = 35.0f;
+const int MAX_FONT_SIZE = 24;
+
 void Node::setLeft(int value) {
     left = std::make_shared<Node>(value);
     left.value()->setParent(this);
@@ -28,9 +31,12 @@ void Node::draw(int x, int y, int level) {
         DrawLine(x, y, x + levelOffset, y + 100, BLACK);
     }
 
-    DrawCircle(x, y, 30.0f, BLACK);
-    DrawCircle(x, y, 28.0f, RAYWHITE);
-    DrawText(std::to_string(value).c_str(), x - 12, y - 12, 24, BLACK);
+    float circleRadius = MAX_CIRLCE_RADIUS - level * 3.0f;
+    int fontSize = MAX_FONT_SIZE - level;
+
+    DrawCircle(x, y, circleRadius, BLACK);
+    DrawCircle(x, y, circleRadius * 0.90, RAYWHITE);
+    DrawText(std::to_string(value).c_str(), x - 12, y - 12, fontSize, RED);
 
     // Recursively draw children
     if (right.has_value()) {
